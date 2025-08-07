@@ -49,33 +49,33 @@ export default function SectorInsightsOverview() {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-16 bg-gradient-to-br from-[#f8fafc] to-[#fff7ed]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Sector Insights</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover in-depth information on various banking sectors such as agriculture financing, export loans, and other key industry supports that empower economic growth.
-          </p>
+        <div className="text-left mb-12">
+          <h2 className="text-4xl font-extrabold text-[#ee7b28] mb-2 tracking-tight">Explore Sector Products</h2>
+          <p className="text-lg text-gray-500 max-w-2xl">Handpicked solutions and insights for every sector. Find your next opportunity below.</p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {sectorInsights.map((sector) => {
+        <div className="columns-1 sm:columns-2 md:columns-3 gap-8 [column-fill:_balance]">
+          {sectorInsights.map((sector, idx) => {
             const Icon = getIcon(sector.category || sector.title);
             return (
-              <Card key={sector.id} className="transition-shadow duration-300 hover:shadow-lg">
-                <CardHeader className="text-center">
-                  <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                    style={{ backgroundColor: "rgba(238, 123, 40, 0.1)" }}
-                  >
-                    <Icon className="w-8 h-8" style={{ color: "#ee7b28" }} />
+              <div
+                key={sector.id}
+                className={`mb-8 break-inside-avoid rounded-2xl shadow-lg border border-orange-100 bg-white hover:shadow-2xl transition-all duration-300 ${idx % 3 === 0 ? 'pt-8 pb-6' : idx % 3 === 1 ? 'pt-12 pb-8' : 'pt-6 pb-10'}`}
+              >
+                <div className="flex items-center gap-3 px-6">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-orange-200 to-orange-400 shadow">
+                    <Icon className="w-7 h-7 text-white" />
                   </div>
-                  <CardTitle className="text-xl">{sector.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-center text-gray-600">{sector.description}</CardDescription>
-                </CardContent>
-              </Card>
+                  <div className="font-bold text-lg text-[#ee7b28]">{sector.title}</div>
+                </div>
+                <div className="px-6 pt-4 pb-2 text-gray-700 text-base">
+                  {sector.description}
+                </div>
+                <div className="px-6 pt-2 flex justify-end">
+                  <span className="inline-block bg-orange-100 text-orange-700 text-xs font-semibold px-3 py-1 rounded-full">{sector.category}</span>
+                </div>
+              </div>
             );
           })}
         </div>

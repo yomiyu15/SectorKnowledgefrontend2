@@ -8,7 +8,7 @@ export default function Footer() {
 
 
   return (
-    <footer className="bg-gradient-to-b from-[#0a2540] to-[#0d2d4d] text-white pt-16 pb-8">
+    <footer className="bg-gradient-to-b from-[#0a2540] to-[#0d2d4d] text-white pt-8 pb-4">
       {/* Decorative elements */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden">
         <div className="absolute bottom-0 left-0 w-full h-48 bg-[#00adef] opacity-5 rounded-t-full transform scale-150"></div>
@@ -16,7 +16,7 @@ export default function Footer() {
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-6">
           {/* Media Section */}
           <div>
             <h3 className="text-xl font-bold mb-6 text-[#00adef] flex items-center">

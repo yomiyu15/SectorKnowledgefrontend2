@@ -55,37 +55,31 @@ export default function FAQ() {
   }
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gradient-to-br from-[#fff7ed] to-[#f8fafc]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-          <p className="text-xl text-gray-600">
-            Find answers to common questions about our banking products and services.
-          </p>
+        <div className="text-center mb-14">
+          <h2 className="text-4xl font-extrabold text-[#0084bd] mb-3 tracking-tight">Frequently Asked Questions</h2>
+          <p className="text-lg text-gray-500">Find answers to common questions about our products and services.</p>
         </div>
-
-        <div className="space-y-4">
+        <div className="space-y-6">
           {faqs.map((faq) => (
-            <Card key={faq.id} className="border border-gray-200">
-              <CardHeader
-                className="cursor-pointer hover:bg-gray-50 transition-colors"
+            <div key={faq.id} className={`rounded-2xl shadow-lg border border-orange-100 bg-white transition-all duration-300 ${openItems.includes(faq.id) ? 'ring-2 ring-orange-400' : ''}`}>
+              <button
+                className="w-full flex justify-between items-center px-6 py-5 text-lg font-semibold text-gray-800 rounded-2xl focus:outline-none hover:bg-orange-50 transition-colors"
                 onClick={() => toggleItem(faq.id)}
+                aria-expanded={openItems.includes(faq.id)}
               >
-                <CardTitle className="flex justify-between items-center text-lg">
-                  {faq.question}
-                  {openItems.includes(faq.id) ? (
-                    <ChevronUp className="w-5 h-5 text-[#00adef]" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-[#00adef]" />
-                  )}
-                </CardTitle>
-              </CardHeader>
+                <span>{faq.question}</span>
+                <span className={`ml-4 transition-transform duration-300 ${openItems.includes(faq.id) ? 'rotate-180 text-orange-500' : 'text-orange-400'}`}>
+                  {openItems.includes(faq.id) ? <ChevronUp className="w-6 h-6" /> : <ChevronDown className="w-6 h-6" />}
+                </span>
+              </button>
               {openItems.includes(faq.id) && (
-                <CardContent>
-                  <p className="text-gray-600">{faq.answer}</p>
-                </CardContent>
+                <div className="px-6 pb-5 text-gray-700 text-base animate-fade-in">
+                  {faq.answer}
+                </div>
               )}
-            </Card>
+            </div>
           ))}
         </div>
       </div>

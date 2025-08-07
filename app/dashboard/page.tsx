@@ -34,26 +34,25 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#fff7ed] to-[#f8fafc]">
       <Header />
-
-      <div className="flex h-[calc(100vh-64px)]">
+      <div className="flex h-[calc(100vh-80px)]">
         {/* Mobile Sidebar Toggle */}
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden fixed top-20 left-4 z-30 bg-white shadow-lg hover:bg-gray-50 border border-gray-200"
+          className="md:hidden fixed top-24 left-4 z-30 bg-white shadow-lg hover:bg-orange-50 border border-orange-200 rounded-full"
           onClick={() => setSidebarOpen(!sidebarOpen)}
           aria-label="Toggle sidebar"
         >
-          {sidebarOpen ? <X className="w-5 h-5 text-gray-600" /> : <Menu className="w-5 h-5 text-[#00adef]" />}
+          {sidebarOpen ? <X className="w-6 h-6 text-orange-600" /> : <Menu className="w-6 h-6 text-orange-600" />}
         </Button>
 
         {/* Sidebar */}
         <div
-          className={`${
+          className={`$ {
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0 fixed md:static top-16 left-0 h-[calc(100vh-64px)] w-80 bg-white shadow-xl md:shadow-none z-20 transform transition-transform duration-300 ease-in-out border-r border-gray-200`}
+          } md:translate-x-0 fixed md:static top-20 left-0 h-[calc(100vh-80px)] w-80 bg-white rounded-r-3xl shadow-xl md:shadow-none z-20 transform transition-transform duration-300 ease-in-out border-r border-orange-100`}
         >
           <Sidebar
             folders={folders}
@@ -76,9 +75,11 @@ export default function Dashboard() {
         )}
 
         {/* Main Content */}
-<main className="flex-1 overflow-auto">
-
-          <MainContent selectedFile={selectedFile} searchTerm={searchTerm} folders={folders} />
+        <main className="flex-1 overflow-auto px-6 py-8">
+          <div className="max-w-6xl mx-auto">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-orange-600 mb-8 tracking-tight">Sector Dashboard</h1>
+            <MainContent selectedFile={selectedFile} searchTerm={searchTerm} folders={folders} />
+          </div>
         </main>
       </div>
     </div>

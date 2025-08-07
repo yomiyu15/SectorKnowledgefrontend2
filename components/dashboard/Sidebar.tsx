@@ -132,9 +132,9 @@ export default function Sidebar({
   )
 
   return (
-    <aside className={`flex flex-col h-screen w-80 bg-white border-r border-gray-200 ${className}`}>
+    <aside className={`flex flex-col h-screen w-100 bg-white border-r border-gray-200 ${className}`}>
       {/* Search Header */}
-      <div className="p-4 bg-gradient-to-r from-gray-50 to-blue-50 border-b border-gray-200">
+      <div className="p-10 bg-gradient-to-r bg-white-50 bg-white border-gray-200">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
           <Input

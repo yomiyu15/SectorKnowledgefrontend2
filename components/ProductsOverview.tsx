@@ -20,7 +20,7 @@ export default function SectorInsightsOverview() {
 
   const fetchSectorInsights = async () => {
     try {
-      const res = await fetch("https://backend-service-1wqi.onrender.com/api/products");
+      const res = await fetch("http://10.12.53.34:5000/api/products");
       if (res.ok) {
         const data = await res.json();
         setSectorInsights(data);

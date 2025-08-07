@@ -5,14 +5,15 @@ import FAQ from "@/components/FAQ"
 import Footer from "@/components/Footer"
 import Scroll from "@/components/HorizontalScrollCards"
 
-
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#fff7ed] to-[#f8fafc]">
+    <main className="min-h-screen overflow-x-hidden bg-gradient-to-br from-[#fff7ed] to-[#f8fafc]">
       <Header />
       <div className="relative z-10">
         <Hero />
-        <Scroll />
+        <div className="overflow-x-auto">
+          <Scroll />
+        </div>
         {/* <ProductsOverview /> */}
         <FAQ />
       </div>

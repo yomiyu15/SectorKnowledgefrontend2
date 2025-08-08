@@ -4,18 +4,19 @@ import ProductsOverview from "@/components/ProductsOverview"
 import FAQ from "@/components/FAQ"
 import Footer from "@/components/Footer"
 import Scroll from "@/components/HorizontalScrollCards"
-
-import Testimonial from "@/components/Testimonial"
-
+import HowItWorks from "@/components/HowitWorks"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#fff7ed] to-[#f8fafc]">
+    <main className="min-h-screen overflow-x-hidden bg-gradient-to-br from-[#fff7ed] to-[#f8fafc]">
       <Header />
       <div className="relative z-10">
         <Hero />
-        <Scroll />
-        <Testimonial />
+        <div className="overflow-x-auto">
+          <Scroll />
+        </div>
+        {/* <ProductsOverview /> */}
+        <HowItWorks/>
         <FAQ />
       </div>
       <Footer />

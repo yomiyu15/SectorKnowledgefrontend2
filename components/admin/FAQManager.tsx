@@ -13,7 +13,7 @@ interface FAQ {
   answer: string
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://backend-service-1wqi.onrender.com"
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://10.12.53.34:5000"
 
 export default function FAQManager() {
   const [faqs, setFaqs] = useState<FAQ[]>([])

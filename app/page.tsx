@@ -5,6 +5,8 @@ import FAQ from "@/components/FAQ"
 import Footer from "@/components/Footer"
 import Scroll from "@/components/HorizontalScrollCards"
 
+import Testimonial from "@/components/Testimonial"
+
 
 export default function Home() {
   return (
@@ -13,7 +15,7 @@ export default function Home() {
       <div className="relative z-10">
         <Hero />
         <Scroll />
-        {/* <ProductsOverview /> */}
+        <Testimonial />
         <FAQ />
       </div>
       <Footer />

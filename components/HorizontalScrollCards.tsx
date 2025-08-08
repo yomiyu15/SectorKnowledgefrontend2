@@ -54,7 +54,7 @@ export default function HorizontalScrollCards() {
       `}</style>
       <div className="max-w-7xl mx-auto px-5">
         <div className="lg:pl-16">
-          <h2 className="text-4xl font-extrabold text-[#ee7b28] mb-2 tracking-tight text-left">Products</h2><br />
+          <h2 className="text-4xl font-extrabold text-[#ee7b28] mb-2 tracking-tight text-left">Featured Products</h2><br />
           <div className="w-full overflow-x-hidden relative" style={{ height: '18rem' }}>
             <div
               className="flex gap-8 animate-scrollCards min-w-full"

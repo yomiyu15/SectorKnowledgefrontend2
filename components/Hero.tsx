@@ -9,12 +9,7 @@ import Img1 from "../assets/images/zig.png";
 export default function Hero() {
   return (
     <section className="relative py-20 overflow-hidden "
-    // style={{
-    //           backgroundImage: `url(${Img1.src})`,
-    //           backgroundSize: "cover",
-    //           backgroundPosition: "center",
-    //           opacity: 0.97
-    //         }}
+  
     >
       {/* Faded agriculture background image */}
       <div className="absolute inset-0 w-full h-full -z-10">
@@ -33,7 +28,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-6xl mx-auto px-4 flex flex-col lg:flex-row items-center gap-16">
         {/* Left: Main Content */}
         <motion.div
-          className="flex-1 space-y-8"
+          className="flex-1 space-y-8 flex flex-col items-start"
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
@@ -63,10 +58,28 @@ export default function Hero() {
                 size="lg"
                 className="bg-gradient-to-r from-[#00bcd4] to-[#00adef] text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition-transform"
               >
-                Explore
+                Explore Products
               </Button>
             </Link>
           </div>
+
+          {/* Feature Highlights Row */}
+          <div className="flex flex-wrap justify-start gap-7 mt-3">
+            <div className="flex items-center gap-2 px-4 py-2 ">
+              <svg className="w-5 h-5 text-[#0084bd]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path strokeLinecap="round" strokeLinejoin="round" d="M8 12l2 2 4-4" /></svg>
+              Affordable Financing
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 ">
+              <svg className="w-5 h-5 text-[#0084bd]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4" /><path strokeLinecap="round" strokeLinejoin="round" d="M9 9h6v6H9z" /></svg>
+              Modern Equipment
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 ">
+              <svg className="w-5 h-5 text-[#0084bd]" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3" /><circle cx="12" cy="12" r="10" /></svg>
+              Proven Impact
+            </div>
+          </div>
+
+     
 
           {/* Quick Crop Cards */}
           {/* <div className="flex gap-4 mt-8">

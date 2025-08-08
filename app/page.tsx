@@ -4,6 +4,7 @@ import ProductsOverview from "@/components/ProductsOverview"
 import FAQ from "@/components/FAQ"
 import Footer from "@/components/Footer"
 import Scroll from "@/components/HorizontalScrollCards"
+import HowItWorks from "@/components/HowitWorks"
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
           <Scroll />
         </div>
         {/* <ProductsOverview /> */}
+        <HowItWorks/>
         <FAQ />
       </div>
       <Footer />

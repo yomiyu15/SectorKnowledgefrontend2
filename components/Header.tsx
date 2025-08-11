@@ -40,6 +40,9 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
             <Link href="/dashboard" className="text-gray-700 hover:text-orange-600 transition-colors text-base font-semibold px-3 py-2 rounded-lg hover:bg-orange-50">
               Sectors
             </Link>
+              <Link href="/products" className="text-gray-700 hover:text-orange-600 transition-colors text-base font-semibold px-3 py-2 rounded-lg hover:bg-orange-50">
+              Product Overview
+            </Link>
           </nav>
 
           {/* Mobile Menu (Pages) */}

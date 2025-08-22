@@ -27,11 +27,13 @@ export default function Sidebar({
   const [expandedFolders, setExpandedFolders] = useState<number[]>([])
 
   const toggleFolder = (folderId: number) => {
-    setExpandedFolders((prev) => (prev.includes(folderId) ? prev.filter((id) => id !== folderId) : [...prev, folderId]))
+    setExpandedFolders((prev) =>
+      prev.includes(folderId) ? prev.filter((id) => id !== folderId) : [...prev, folderId]
+    )
   }
 
-  const formatFileName = (name: string) => {
-    return name
+  const formatFileName = (name: string) =>
+    name
       .replace(/_/g, " ")
       .replace(/\.pdf$/i, "")
       .replace(/\bfor\b/gi, "")
@@ -39,21 +41,27 @@ export default function Sidebar({
       .trim()
       .toLowerCase()
       .replace(/\b\w/g, (char) => char.toUpperCase())
-  }
 
-  const getAllFiles = (folders: Folder[]): FileItem[] => {
-    return folders.flatMap((folder) => [
+  const getAllFiles = (folders: Folder[]): FileItem[] =>
+    folders.flatMap((folder) => [
       ...(folder.files || []),
       ...(folder.subfolders ? getAllFiles(folder.subfolders) : []),
     ])
-  }
+
+  // Sidebar.tsx
+const handleFileClick = (file: FileItem) => {
+  // Just select the file; MainContent will render it inline
+  onFileSelect(file);
+};
+
 
   const renderFolder = (folder: Folder, level = 0) => {
     const isExpanded = expandedFolders.includes(folder.id)
     const hasSubfolders = folder.subfolders && folder.subfolders.length > 0
     const hasFiles = folder.files && folder.files.length > 0
     const fileCount =
-      (folder.files?.length || 0) + (folder.subfolders?.reduce((acc, sub) => acc + (sub.files?.length || 0), 0) || 0)
+      (folder.files?.length || 0) +
+      (folder.subfolders?.reduce((acc, sub) => acc + (sub.files?.length || 0), 0) || 0)
 
     return (
       <div key={folder.id} className="space-y-1">
@@ -64,9 +72,7 @@ export default function Sidebar({
           onClick={() => toggleFolder(folder.id)}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") toggleFolder(folder.id)
-          }}
+          onKeyDown={(e) => e.key === "Enter" && toggleFolder(folder.id)}
         >
           <div className="flex items-center flex-1 min-w-0">
             {hasSubfolders || hasFiles ? (
@@ -93,20 +99,15 @@ export default function Sidebar({
         </div>
 
         {isExpanded && (
-          <div
-            className="space-y-1 animate-in slide-in-from-top-2 duration-300 overflow-hidden"
-            style={{ animationTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)" }}
-          >
+          <div className="space-y-1 animate-in slide-in-from-top-2 duration-300 overflow-hidden">
             {folder.files?.map((file) => (
               <div
                 key={file.id}
                 className="flex items-center p-2 ml-6 hover:bg-gradient-to-r hover:from-red-50 hover:to-orange-50 cursor-pointer rounded-lg transition-all duration-300 group border-l-2 border-transparent hover:border-red-200 transform hover:scale-[1.02]"
-                onClick={() => onFileSelect(file)}
+                onClick={() => handleFileClick(file)}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") onFileSelect(file)
-                }}
+                onKeyDown={(e) => e.key === "Enter" && handleFileClick(file)}
               >
                 <div className="bg-red-50 p-1.5 rounded-md mr-2 group-hover:bg-red-100 transition-colors">
                   <FileText className="w-3.5 h-3.5 text-red-500" />
@@ -127,12 +128,6 @@ export default function Sidebar({
   const searchResults = searchTerm
     ? allFiles.filter((file) => file.name.toLowerCase().includes(searchTerm.toLowerCase()))
     : []
-
-  const filteredFolders = folders.filter(
-    (folder) =>
-      folder.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      folder.files?.some((file) => file.name.toLowerCase().includes(searchTerm.toLowerCase())),
-  )
 
   return (
     <aside className={`flex flex-col h-screen bg-white border-r border-gray-200 shadow-sm ${className}`}>
@@ -158,22 +153,32 @@ export default function Sidebar({
         )}
       </div>
 
-      {/* Category Header */}
-      <div className="p-4 border-b flex justify-between items-center">
-        <h2 className="text-sm font-semibold text-gray-700">Product Categories</h2>
-        <Badge variant="outline" className="text-xs">
-          {folders.length}
-        </Badge>
-      </div>
-
-      {/* Folder & File List */}
-      <ScrollArea className="flex-1 p-4">
-        {filteredFolders.length > 0 ? (
-          <div className="space-y-2">{filteredFolders.map((folder) => renderFolder(folder))}</div>
-        ) : (
-          <div className="text-center py-10 text-gray-400 text-sm">No matching files</div>
-        )}
-      </ScrollArea>
+      {/* Search Results */}
+      {searchTerm ? (
+        <ScrollArea className="flex-1 p-4">
+          {searchResults.length > 0 ? (
+            searchResults.map((file) => (
+              <div
+                key={file.id}
+                className="flex items-center p-2 mb-1 hover:bg-gradient-to-r hover:from-red-50 hover:to-orange-50 cursor-pointer rounded-lg transition-all duration-300 group border-l-2 border-transparent hover:border-red-200 transform hover:scale-[1.02]"
+                onClick={() => handleFileClick(file)}
+              >
+                <div className="bg-red-50 p-1.5 rounded-md mr-2 group-hover:bg-red-100 transition-colors">
+                  <FileText className="w-3.5 h-3.5 text-red-500" />
+                </div>
+                <span className="text-sm text-gray-600 truncate group-hover:text-red-700 transition-colors duration-300">
+                  {formatFileName(file.name)}
+                </span>
+              </div>
+            ))
+          ) : (
+            <div className="text-center py-10 text-gray-400 text-sm">No matching files</div>
+          )}
+        </ScrollArea>
+      ) : (
+        // Normal folder view
+        <ScrollArea className="flex-1 p-4">{folders.map((folder) => renderFolder(folder))}</ScrollArea>
+      )}
     </aside>
   )
 }

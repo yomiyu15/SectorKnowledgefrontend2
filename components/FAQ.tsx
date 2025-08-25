@@ -33,7 +33,7 @@ export default function FAQ() {
           id: 1,
           question: "How do I access the product catalog?",
           answer:
-            'Click the "Get Started" button on the homepage to access our comprehensive product catalog with detailed documentation.',
+            'Click the "Explore Products" button on the homepage to access our comprehensive product catalog with detailed documentation.', 
         },
         {
           id: 2,
@@ -55,7 +55,7 @@ export default function FAQ() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-[#fff7ed] to-[#f8fafc]">
+    <section className="py-20 bg-gradient-to-br from-[#fff7ed] to-[#f8fafc]" id="faq">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-4xl font-extrabold text-[#0084bd] mb-3 tracking-tight">Frequently Asked Questions</h2>

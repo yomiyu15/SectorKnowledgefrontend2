@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-gradient-to-b from-[#0a2540] to-[#0d2d4d] text-white py-10 overflow-hidden">
+    <footer className="relative bg-gradient-to-b from-[#0a2540] to-[#0d2d4d] text-white py-10 overflow-hidden" id="versions">
       
       {/* Floating Decorative Circles */}
       <div className="absolute -top-10 -left-10 w-32 h-32 bg-[#00adef] opacity-20 rounded-full animate-pulse"></div>

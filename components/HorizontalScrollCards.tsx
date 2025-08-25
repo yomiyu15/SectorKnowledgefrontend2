@@ -9,30 +9,25 @@ import CRM from "../assets/images/crm.png";
 import michukiya from "../assets/images/michukiya2.png";
 const cardData = [
   {
-   
     img: michu,
+    title: "Michu",
+    desc: "MICHU: Digital loan solution without collateral",
   },
   {
-    
     img: ebirr,
+    title: "eBirr",
+    desc: "EBIRR: Digital wallet and payment platform",
   },
   {
-   
     img: CRM,
+    title: "CRM",
+    desc: "CRM: Customer relationship management system",
   },
- 
-  // {
-  //   title: "Animation",
-  //   img: "/images/animation.jpg",
-  // },
-  // {
-  //   title: "Branding",
-  //   img: "/images/branding.jpg",
-  // },
-  // {
-  //   title: "Illustration",
-  //   img: "/images/illustration.jpg",
-  // },
+  {
+    img: michukiya,
+    title: "Michukiya 2",
+    desc: "MICHU-KIYA: Digital loan solution without collateral for woman",
+  },
 ];
 
 export default function HorizontalScrollCards() {
@@ -43,7 +38,7 @@ export default function HorizontalScrollCards() {
   
     
    return (
-    <section className="py-10">
+    <section className="py-10" id="products">
       <style>{`
         @keyframes scrollCards {
           0% { transform: translateX(0); }
@@ -68,10 +63,13 @@ export default function HorizontalScrollCards() {
                   <div className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden">
                     <Image
                       src={card.img}
-                      alt="img"
+                      alt={card.title}
                       fill
                       className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                     />
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs py-2 px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {card.desc}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -90,5 +88,5 @@ export default function HorizontalScrollCards() {
         }
       `}</style>
     </section>
-);
-                      }
+  );
+}

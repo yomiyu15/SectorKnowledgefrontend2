@@ -82,7 +82,7 @@ export default function Dashboard() {
         <main className="flex-1 overflow-auto px-6 py-8 relative">
           <div className="max-w-6xl mx-auto">
             <h4 className="text-2xl md:text-3xl font-extrabold text-orange-500 mb-4 tracking-tight">
-              Sector Dashboard
+             Dashboard
             </h4>
             <MainContent
               selectedFile={selectedFile}

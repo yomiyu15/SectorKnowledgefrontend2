@@ -59,9 +59,7 @@ const handleFileClick = (file: FileItem) => {
     const isExpanded = expandedFolders.includes(folder.id)
     const hasSubfolders = folder.subfolders && folder.subfolders.length > 0
     const hasFiles = folder.files && folder.files.length > 0
-    const fileCount =
-      (folder.files?.length || 0) +
-      (folder.subfolders?.reduce((acc, sub) => acc + (sub.files?.length || 0), 0) || 0)
+    const fileCount = getAllFiles([folder]).length
 
     return (
       <div key={folder.id} className="space-y-1">
@@ -91,11 +89,12 @@ const handleFileClick = (file: FileItem) => {
               {folder.name}
             </span>
           </div>
-          {fileCount > 0 && (
-            <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-600 ml-2">
-              {fileCount}
-            </Badge>
-          )}
+          <Badge
+            variant="secondary"
+            className={`text-xs ml-2 ${fileCount === 0 ? "bg-gray-50 text-gray-400" : "bg-gray-100 text-gray-600"}`}
+          >
+            {fileCount}
+          </Badge>
         </div>
 
         {isExpanded && (

@@ -3,22 +3,15 @@
 import type React from "react";
 import {
   FileText,
-  Star,
   ZoomIn,
   ZoomOut,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { Folder, FileItem } from "@/types";
+import type { FileItem } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Input } from "@/components/ui/input";
-import { motion, AnimatePresence } from "framer-motion";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.js`;
 
@@ -30,8 +23,6 @@ interface MainContentProps {
 
 const MainContent: React.FC<MainContentProps> = ({ selectedFile }) => {
   const [numPages, setNumPages] = useState<number | null>(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [containerWidth, setContainerWidth] = useState<number | null>(null);
   const [scale, setScale] = useState(1.0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -40,7 +31,6 @@ const MainContent: React.FC<MainContentProps> = ({ selectedFile }) => {
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
-    setPageNumber(1);
   };
 
   const handleResize = useCallback(() => {
@@ -114,26 +104,20 @@ const MainContent: React.FC<MainContentProps> = ({ selectedFile }) => {
         onContextMenu={(e) => e.preventDefault()}
       >
         <div className="w-full max-w-5xl mx-auto bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow-lg border border-gray-100">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={pageNumber}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-            >
-              <Document
-                file={`http://10.12.53.34:5000/uploads/${selectedFile.filename}`}
-                onLoadSuccess={onDocumentLoadSuccess}
-                loading={<Skeleton className="h-[500px] w-full rounded-md" />}
-                error={
-                  <p className="text-red-500 text-center py-4">
-                    Failed to load PDF.
-                  </p>
-                }
-              >
+          <Document
+            file={`http://10.12.53.34:5000/uploads/${selectedFile.filename}`}
+            onLoadSuccess={onDocumentLoadSuccess}
+            loading={<Skeleton className="h-[500px] w-full rounded-md" />}
+            error={
+              <p className="text-red-500 text-center py-4">
+                Failed to load PDF.
+              </p>
+            }
+          >
+            {Array.from(new Array(numPages), (el, index) => (
+              <div key={`page_${index + 1}`} className="mb-8">
                 <Page
-                  pageNumber={pageNumber}
+                  pageNumber={index + 1}
                   scale={scale}
                   width={
                     containerWidth
@@ -144,73 +128,16 @@ const MainContent: React.FC<MainContentProps> = ({ selectedFile }) => {
                   renderTextLayer={false}
                   renderAnnotationLayer={false}
                 />
-              </Document>
-            </motion.div>
-          </AnimatePresence>
+              </div>
+            ))}
+          </Document>
         </div>
       </div>
 
       {/* Footer Navigation */}
       {numPages && numPages > 1 && (
         <div className="px-4 py-3 bg-white/90 backdrop-blur-md border-t border-gray-200 sticky bottom-0 z-20">
-          <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
-            {/* Pagination Controls */}
-            <div className="flex items-center gap-1">
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setPageNumber(1)}
-                disabled={pageNumber <= 1}
-              >
-                <ChevronsLeft className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() =>
-                  setPageNumber((p) => Math.max(1, p - 1))
-                }
-                disabled={pageNumber <= 1}
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </Button>
-              <Input
-                type="number"
-                min={1}
-                max={numPages}
-                value={pageNumber}
-                onChange={(e) => {
-                  const val = Math.min(
-                    numPages,
-                    Math.max(1, Number(e.target.value))
-                  );
-                  setPageNumber(val);
-                }}
-                className="w-14 text-center"
-              />
-              <span className="text-sm text-gray-500">
-                of {numPages}
-              </span>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() =>
-                  setPageNumber((p) => Math.min(numPages, p + 1))
-                }
-                disabled={pageNumber >= numPages}
-              >
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setPageNumber(numPages)}
-                disabled={pageNumber >= numPages}
-              >
-                <ChevronsRight className="w-4 h-4" />
-              </Button>
-            </div>
-
+          <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-end gap-3">
             {/* Zoom Controls */}
             <div className="flex items-center gap-1">
               <Button
